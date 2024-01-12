@@ -44,22 +44,22 @@ public class Cliente {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull(message = "este nombre no puede estar vacio")
-    @NotBlank(message = "este nombre no puede ser nulo")
+    @NotNull(message = "El nombre no puede estar vacio")
+    @NotBlank(message = "El nombre no puede ser nulo")
     @Column(name = "nombre",nullable = false)
     private String name;
 
-    @NotNull(message = "este apellido no puede estar vacio")
-    @NotBlank(message = "este apellido no puede ser nulo")
+    @NotNull(message = "El apellido no puede estar vacio")
+    @NotBlank(message = "El apellido no puede ser nulo")
     @Column(name = "apellido",nullable = false)
     private String lastName;
 
-    @NotNull(message = "este telefono no puede estar vacio")
+    @NotNull(message = "El telefono no puede estar vacio")
     @Column(name = "telefono",nullable = false)
     private int  phone;
 
-    @Email(message = "Formato de correo electrónico no válido")
-    @NotBlank(message = "este correo no puede ser nulo")
+    @Email(message = "El Formato de correo electrónico no válido")
+    @NotBlank(message = "El correo no puede ser nulo")
     @Column(name = "correo",nullable = false)
     private String mail;
 

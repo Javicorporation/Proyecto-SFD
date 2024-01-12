@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -47,11 +48,11 @@ public class ClienteController {
     @PostMapping()
     public ResponseEntity<?> guardar(@Valid @RequestBody Cliente cliente, BindingResult result) {
         if (result.hasErrors()) {
-            List<Error> errors = result.getAllErrors().stream()
-                .map(err -> new Error(err.getCode(), err.getDefaultMessage()))
+            List<String> messages = result.getAllErrors().stream()
+                .map(ObjectError::getDefaultMessage)
                 .collect(Collectors.toList());
-    
-            return ResponseEntity.badRequest().body(errors); 
+            String errorMessage = String.join(", ", messages); 
+            return ResponseEntity.badRequest().body(new Error("Validation Error", errorMessage));
         }
     
         Cliente newCliente = clienteService.save(cliente);
