@@ -8,6 +8,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -44,14 +46,32 @@ public class Producto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @NotBlank(message = "El nombre no puede ser vacio")
+    @NotNull(message = "El nombre no puede ser nulo")
     @Column(name="nombre", nullable = false)
     private String name;
+
+
+    @NotBlank(message = "El fabricante no nuede ser vacio")
+    @NotNull(message = "El fabricante no puede ser nulo")
     @Column(name="fabricante", nullable = false)
     private String maker;
+
+
+
+    @NotNull(message = "el precio no puede ser nulo")
     @Column(name="precio", nullable = false)
     private double price;
+
+
+    
+    @NotBlank(message = "El provedor no nuede ser vacio")
+    @NotNull(message = "El provedor no puede ser nulo")
     @Column(name="proveedor", nullable = false)
     private String supplier;
+
+    
     @Column(name="fechaExpiracion", nullable = false)
     private Date fechaExp;
 

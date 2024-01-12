@@ -53,7 +53,6 @@ public class facturaController {
                 .collect(Collectors.toList());
             String errorMessage = String.join(", ", messages);
             return ResponseEntity.badRequest().body(new Error("validation Error", errorMessage));
-
         }
         Factura newFactura = facturaService.save(factura);
         return ResponseEntity.ok(newFactura);
