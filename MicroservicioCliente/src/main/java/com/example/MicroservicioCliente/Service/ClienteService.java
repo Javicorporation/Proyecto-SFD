@@ -1,6 +1,7 @@
 package com.example.MicroservicioCliente.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,13 +18,13 @@ public class ClienteService {
         return clienteRepository.findAll();
     }
 
-    public Cliente getClienteById(Long id){
-        return clienteRepository.findById(id).orElse(null);
+    public Optional getClienteById(Long id){
+        return clienteRepository.findById(id);
     }
 
-    public Cliente saveCliente(Cliente cliente){
-        Cliente newCliente = clienteRepository.save(cliente);
-        return newCliente;
+    public void saveCliente(Cliente cliente){
+        clienteRepository.save(cliente);
+        
     }
 
 }
