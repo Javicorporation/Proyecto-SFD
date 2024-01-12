@@ -45,17 +45,20 @@ public class ClienteController {
     
 
     @PostMapping()
-    public ResponseEntity<Cliente> guardar(@Valid @RequestBody Cliente cliente, BindingResult result) {
+    public ResponseEntity<?> guardar(@Valid @RequestBody Cliente cliente, BindingResult result) {
         if (result.hasErrors()) {
             List<Error> errors = result.getAllErrors().stream()
                 .map(err -> new Error(err.getCode(), err.getDefaultMessage()))
                 .collect(Collectors.toList());
-
-            return ResponseEntity.badRequest().body(new Cliente());
+    
+            return ResponseEntity.badRequest().body(errors); 
         }
-
+    
         Cliente newCliente = clienteService.save(cliente);
         return ResponseEntity.ok(newCliente);
     }
+    
+
+
 
 }
