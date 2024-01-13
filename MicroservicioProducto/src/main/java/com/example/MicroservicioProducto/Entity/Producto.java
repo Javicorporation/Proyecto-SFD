@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -61,6 +62,7 @@ public class Producto {
 
 
     @NotNull(message = "el precio no puede ser nulo")
+    @DecimalMin(value = "0.00")
     @Column(name="precio", nullable = false)
     private double price;
 

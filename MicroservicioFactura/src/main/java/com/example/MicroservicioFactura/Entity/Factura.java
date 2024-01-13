@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -25,21 +26,23 @@ public class Factura {
 
     
 
-    public Factura(Long id, Date fechaExp, String type, String storeName, String sellerName) {
+    public Factura(Long id, Date fechaExp, String type, String storeName, String sellerName,int userId) {
         super();
         this.id = id;
         this.fechaExp = fechaExp;
         this.type = type;
         this.storeName = storeName;
         this.sellerName = sellerName;
+        this.userId = userId;
     }
 
-    public Factura(Date fechaExp, String type, String storeName, String sellerName) {
+    public Factura(Date fechaExp, String type, String storeName, String sellerName, int userId) {
         super();
         this.fechaExp = fechaExp;
         this.type = type;
         this.storeName = storeName;
         this.sellerName = sellerName;
+        this.userId = userId;
     }
 
 
@@ -67,11 +70,19 @@ public class Factura {
     private String sellerName;
 
 
+    @NotNull(message = "El valor del id de usuario no puede ser nulo")
+    @Min(value = 1, message=" El id del usuario no puede ser negativo o 0")
+    @Column(name = "id de usuario")
+    private int userId;
+
     @Override
     public String toString() {
         return "Factura [id=" + id + ", fechaExp=" + fechaExp + ", type=" + type + ", storeName=" + storeName
-                + ", sellerName=" + sellerName + "]";
-    }   
+                + ", sellerName=" + sellerName + ", userId=" + userId + "]";
+    }
+
+
+     
 
 
 

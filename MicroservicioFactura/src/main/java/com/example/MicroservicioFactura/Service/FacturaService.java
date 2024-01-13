@@ -26,6 +26,10 @@ public class FacturaService {
         Factura newFactura = facturaRepository.save(factura);
         return newFactura;
     }
+
+    public List<Factura> byUserId(int userId){
+        return facturaRepository.findByUserId(userId);
+    }
     
 
 }

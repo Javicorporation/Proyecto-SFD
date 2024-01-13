@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
@@ -27,19 +28,19 @@ public class facturaController {
     FacturaService facturaService;
 
     @GetMapping
-    public ResponseEntity <List<Factura>> traerTodo(){
+    public ResponseEntity <?> traerTodo(){
         List<Factura> todo = facturaService.getAll();
         if(todo.isEmpty())
-            return ResponseEntity.noContent().build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existe el registro");;
         return ResponseEntity.ok(todo);
     }
 
 
     @GetMapping("/{id}")
-    public ResponseEntity <Factura> traerPorId(@PathVariable("id") Long id){
+    public ResponseEntity <?> traerPorId(@PathVariable("id") Long id){
         Factura traeUno = facturaService.getById(id);
         if(traeUno == null)
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existe el registro");;
         return ResponseEntity.ok(traeUno);
 
     }
@@ -56,6 +57,15 @@ public class facturaController {
         }
         Factura newFactura = facturaService.save(factura);
         return ResponseEntity.ok(newFactura);
+    }
+
+    @GetMapping("/byUser/{userId}")
+    public ResponseEntity<?> getByUserId(@PathVariable("userId") int userId){
+        List<Factura> facturas = facturaService.byUserId(userId);
+        if(facturas.isEmpty())
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existe el registro");
+        return ResponseEntity.ok(facturas);
+
     }
 
 

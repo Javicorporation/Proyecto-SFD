@@ -48,9 +48,7 @@ public class ClienteController {
     @PostMapping()
     public ResponseEntity<?> guardar(@Valid @RequestBody Cliente cliente, BindingResult result) {
         if (result.hasErrors()) {
-            List<String> messages = result.getAllErrors().stream()
-                .map(ObjectError::getDefaultMessage)
-                .collect(Collectors.toList());
+            List<String> messages = result.getAllErrors().stream().map(ObjectError::getDefaultMessage).collect(Collectors.toList());
             String errorMessage = String.join(", ", messages); 
             return ResponseEntity.badRequest().body(new Error("Validation Error", errorMessage));
         }
